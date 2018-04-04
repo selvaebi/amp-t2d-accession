@@ -63,7 +63,7 @@ public class StudyConfiguration {
         StudyApplicationProperties studyApplicationProperties = getStudyApplicationProperties();
         return DecoratedAccessionGenerator.buildPrefixSuffixMonotonicAccessionGenerator(new
                         MonotonicAccessionGenerator<>(studyApplicationProperties.getBlockSize(),
-                        studyApplicationProperties.getId(), studyApplicationProperties.getInstanceId(), service),
+                        studyApplicationProperties.getCategoryId(), studyApplicationProperties.getInstanceId(), service),
                 "STUDY_", "");
     }
 }

@@ -20,7 +20,7 @@ package uk.ac.ebi.ampt2d.accession.variant;
 public class VariantApplicationProperties {
     private long blockSize;
 
-    private String id;
+    private String categoryId;
 
     private String instanceId;
 
@@ -32,12 +32,12 @@ public class VariantApplicationProperties {
         this.blockSize = blockSize;
     }
 
-    public String getId() {
-        return id;
+    public String getCategoryId() {
+        return categoryId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getInstanceId() {
@@ -52,7 +52,7 @@ public class VariantApplicationProperties {
     public String toString() {
         return "VariantApplicationProperties{" +
                 "blockSize=" + blockSize +
-                ", id='" + id + '\'' +
+                ", categoryId='" + categoryId + '\'' +
                 ", instanceId='" + instanceId + '\'' +
                 '}';
     }

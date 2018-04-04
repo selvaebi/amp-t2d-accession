@@ -60,7 +60,7 @@ public class VariantAccessioningConfiguration {
     public MonotonicAccessionGenerator<VariantModel> variantAccessionGenerator() {
         VariantApplicationProperties variantApplicationProperties = getVariantApplicationProperties();
         return new MonotonicAccessionGenerator<>(variantApplicationProperties.getBlockSize(),
-                variantApplicationProperties.getId(), variantApplicationProperties.getInstanceId(),
+                variantApplicationProperties.getCategoryId(), variantApplicationProperties.getInstanceId(),
                 service);
     }
 }

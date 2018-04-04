@@ -25,7 +25,8 @@ import uk.ac.ebi.ampt2d.commons.accession.persistence.DatabaseService;
 
 public class StudyAccessioningService extends BasicAccessioningService<StudyModel, String, String> {
 
-    public StudyAccessioningService(DecoratedAccessionGenerator decoratedAccessionGenerator, DatabaseService<StudyModel, String, String>
+    public StudyAccessioningService(DecoratedAccessionGenerator<StudyModel,Long> decoratedAccessionGenerator,
+            DatabaseService<StudyModel, String, String>
             dbService) {
         super(
                 decoratedAccessionGenerator,

@@ -21,7 +21,7 @@ public class StudyApplicationProperties {
 
     private long blockSize;
 
-    private String id;
+    private String categoryId;
 
     private String instanceId;
 
@@ -36,12 +36,12 @@ public class StudyApplicationProperties {
         this.blockSize = blockSize;
     }
 
-    public String getId() {
-        return id;
+    public String getCategoryId() {
+        return categoryId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getInstanceId() {
@@ -56,7 +56,7 @@ public class StudyApplicationProperties {
     public String toString() {
         return "StudyApplicationProperties{" +
                 "blockSize=" + blockSize +
-                ", id='" + id + '\'' +
+                ", categoryId='" + categoryId + '\'' +
                 ", instanceId='" + instanceId + '\'' +
                 '}';
     }
