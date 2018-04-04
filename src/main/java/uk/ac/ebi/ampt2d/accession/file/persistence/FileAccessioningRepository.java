@@ -22,7 +22,6 @@ import org.springframework.stereotype.Repository;
 import uk.ac.ebi.ampt2d.commons.accession.core.AccessioningRepository;
 
 @Repository
-@ConditionalOnProperty(name = "services", havingValue = "file-accession")
 public interface FileAccessioningRepository extends AccessioningRepository<FileEntity, String, String> {
 
 }
