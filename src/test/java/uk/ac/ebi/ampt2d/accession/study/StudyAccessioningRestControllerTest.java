@@ -35,7 +35,7 @@ import static org.junit.Assert.assertEquals;
 import static uk.ac.ebi.ampt2d.test.utils.TestHelper.generateStudyDTOs;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "services=study-accession")
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class StudyAccessioningRestControllerTest {
 
     @Autowired

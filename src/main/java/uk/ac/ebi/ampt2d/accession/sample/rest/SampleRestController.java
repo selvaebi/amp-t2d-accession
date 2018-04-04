@@ -26,7 +26,6 @@ import uk.ac.ebi.ampt2d.commons.accession.rest.BasicRestController;
 
 @RestController
 @RequestMapping(value = "/v1/sample")
-@ConditionalOnProperty(name = "services", havingValue = "sample-accession")
 public class SampleRestController extends BasicRestController<SampleModel, SampleDTO, String> {
 
     public SampleRestController(SampleAccessioningService sampleAccessioningService) {

@@ -38,7 +38,6 @@ import static uk.ac.ebi.ampt2d.test.utils.TestHelper.generateStudyMap;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @DataJpaTest
-@TestPropertySource(properties = {"services=study-accession"})
 public class StudyAccessioningRepositoryTest {
 
     @Autowired

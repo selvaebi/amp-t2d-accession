@@ -26,7 +26,6 @@ import uk.ac.ebi.ampt2d.commons.accession.rest.BasicRestController;
 
 @RestController
 @RequestMapping(value = "/v1/file")
-@ConditionalOnProperty(name = "services", havingValue = "file-accession")
 public class FileRestController extends BasicRestController<FileModel, FileDTO, String> {
 
     public FileRestController(FileAccessioningService fileAccessioningService) {

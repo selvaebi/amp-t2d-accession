@@ -26,7 +26,6 @@ import uk.ac.ebi.ampt2d.commons.accession.rest.BasicRestController;
 
 @RestController
 @RequestMapping(value = "/v1/study")
-@ConditionalOnProperty(name = "services", havingValue = "study-accession")
 public class StudyAccessioningRestController extends BasicRestController<StudyModel, StudyDTO, String> {
 
     public StudyAccessioningRestController(StudyAccessioningService studyAccessioningService) {

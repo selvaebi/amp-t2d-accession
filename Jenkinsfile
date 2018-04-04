@@ -5,21 +5,60 @@ pipeline {
     }
   }
   environment {
+      stagingPostgresDbUrl = credentials('STAGINGPOSTGRESDBURL')
+      fallBackPostgresDbUrl = credentials('STAGINGPOSTGRESDBURL')
+      productionPostgresDbUrl = credentials('STAGINGPOSTGRESDBURL')
+      postgresDBUserName = credentials('POSTGRESDBUSERNAME')
+      postgresDBPassword = credentials('POSTGRESDBPASSWORD')
       tomcatCredentials = credentials('TOMCATCREDENTIALS')
       developmentHost = credentials('DEVELOPMENTHOST')
+   }
+   parameters {
+       booleanParam(name: 'DeployToStaging' , defaultValue: false , description: '')
+       booleanParam(name: 'DeployToProduction' , defaultValue: false , description: '')
     }
   stages {
-    stage('Build') {
+    stage('Default Build pointing to Staging DB') {
       steps {
-        sh 'mvn clean -Daccession.service=file-accession install -DskipTests -DbuildDirectory=file/target'
-        sh 'mvn clean -Daccession.service=study-accession install -DskipTests -DbuildDirectory=study/target'
+        sh "mvn clean package -DskipTests -DbuildDirectory=staging/target -DdbUrl=${stagingPostgresDbUrl} -DdbUsername=${postgresDBUserName} -DdbPassword=${postgresDBPassword}"
       }
     }
-    stage('Deploy') {
-     steps {
-        sh "curl --upload-file file/target/*.war 'http://'${tomcatCredentials}'@'${developmentHost}':8080/manager/text/deploy?path=/hash&update=true' | grep 'OK - Deployed application at context path'"
-        sh "curl --upload-file study/target/*.war 'http://'${tomcatCredentials}'@'${developmentHost}':8080/manager/text/deploy?path=/monotonic&update=true' | grep 'OK - Deployed application at context path'"
+    stage('Build For FallBack And Production') {
+      when {
+        expression {
+          params.DeployToProduction == true
+         }
+       }
+      steps {
+        echo 'Build pointing to FallBack DB'
+        sh "mvn clean package -DskipTests -DbuildDirectory=fallback/target -DdbUrl=${fallBackPostgresDbUrl} -DdbUsername=${postgresDBUserName} -DdbPassword=${postgresDBPassword}"
+        echo 'Build pointing to Production DB'
+        sh "mvn clean package -DskipTests -DbuildDirectory=production/target -DdbUrl=${productionPostgresDbUrl} -DdbUsername=${postgresDBUserName} -DdbPassword=${postgresDBPassword}"
+       }
      }
-  }
-}
-}
+    stage('Deploy To Staging') {
+      when {
+        expression {
+          params.DeployToStaging == true
+         }
+       }
+      steps {
+        echo 'Deploying to Staging'
+        sh "curl --upload-file staging/target/accessioning-service*.war 'http://'${tomcatCredentials}'@'${stagingHost}':8080/manager/text/deploy?path=/ega/t2d/accession&update=true' | grep 'OK - Deployed application at context path /ega/t2d/accession'"
+       }
+     }
+    stage('Deploy To FallBack And Production') {
+      when {
+        expression {
+          params.DeployToProduction == true
+         }
+       }
+      steps {
+        echo 'Deploying to Fallback'
+        sh "curl --upload-file fallback/target/accessioning-service*.war 'http://'${tomcatCredentials}'@'${fallbackHost}':8080/manager/text/deploy?path=/ega/t2d/accession&update=true' | grep 'OK - Deployed application at context path /ega/t2d/accession'"
+        echo 'Deploying to Production'
+        sh "curl --upload-file production/target/accessioning-service*.war 'http://'${tomcatCredentials}'@'${productionHost}':8080/manager/text/deploy?path=/ega/t2d/accession&update=true' | grep 'OK - Deployed application at context path /ega/t2d/accession'" archiveArtifacts artifacts: 'production/target/*.war' , fingerprint: true
+       }
+     }
+   }
+ }

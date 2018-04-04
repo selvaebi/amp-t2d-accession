@@ -26,7 +26,6 @@ import uk.ac.ebi.ampt2d.commons.accession.rest.BasicRestController;
 
 @RestController
 @RequestMapping(value = "/v1/variant")
-@ConditionalOnProperty(name = "services", havingValue = "variant-accession")
 public class VariantAccessioningRestController extends BasicRestController<VariantModel, VariantDTO, Long> {
 
     public VariantAccessioningRestController(VariantAccessioningService service) {

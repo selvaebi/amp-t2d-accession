@@ -22,7 +22,6 @@ import org.springframework.stereotype.Repository;
 import uk.ac.ebi.ampt2d.commons.accession.core.AccessioningRepository;
 
 @Repository
-@ConditionalOnProperty(name = "services", havingValue = "sample-accession")
 public interface SampleAccessioningRepository extends AccessioningRepository<SampleEntity, String, String> {
 
 }

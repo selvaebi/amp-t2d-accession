@@ -38,7 +38,6 @@ import static org.junit.Assert.assertTrue;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @Import(FileAccessioningServiceTestConfiguration.class)
-@TestPropertySource(properties = "services=file-accession")
 public class FileBasicAccessioningServiceTest {
 
     @Autowired

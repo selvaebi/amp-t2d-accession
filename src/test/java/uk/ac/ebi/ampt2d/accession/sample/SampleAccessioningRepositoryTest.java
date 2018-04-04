@@ -42,7 +42,6 @@ import static uk.ac.ebi.ampt2d.test.utils.TestHelper.generateSampleEntity;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @DataJpaTest
-@TestPropertySource(properties = {"services=sample-accession"})
 public class SampleAccessioningRepositoryTest {
 
     @Autowired

@@ -47,14 +47,12 @@ public class StudyAccessioningDatabaseServiceTestConfiguration {
     private ContiguousIdBlockService service;
 
     @Bean
-    @ConditionalOnProperty(name = "services", havingValue = "study-accession")
     public StudyAccessioningService studyAccessionService() {
         return new StudyAccessioningService(DecoratedAccessionGenerator.buildPrefixSuffixMonotonicAccessionGenerator(new MonotonicAccessionGenerator<StudyModel>(1000, "study",
                 "app01", service), "STUDY", ""), studyAccessioningDatabaseService());
     }
 
     @Bean
-    @ConditionalOnProperty(name = "services", havingValue = "study-accession")
     public StudyAccessioningDatabaseService studyAccessioningDatabaseService() {
         return new StudyAccessioningDatabaseService(repository);
     }

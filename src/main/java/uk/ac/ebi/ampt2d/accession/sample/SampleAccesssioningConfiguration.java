@@ -20,13 +20,16 @@ package uk.ac.ebi.ampt2d.accession.sample;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import uk.ac.ebi.ampt2d.accession.sample.persistence.SampleAccessioningDatabaseService;
 import uk.ac.ebi.ampt2d.accession.sample.persistence.SampleAccessioningRepository;
 
 @Configuration
-@ConditionalOnProperty(name = "services", havingValue = "sample-accession")
+@EntityScan({"uk.ac.ebi.ampt2d.accession.sample.persistence"})
+@EnableJpaRepositories(basePackages = {"uk.ac.ebi.ampt2d.accession.sample.persistence"})
 public class SampleAccesssioningConfiguration {
 
     @Autowired

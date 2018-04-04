@@ -41,7 +41,6 @@ import static uk.ac.ebi.ampt2d.test.utils.TestHelper.generateStudyModelHashAcces
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @DataJpaTest
-@TestPropertySource(properties = "services=study-accession")
 @Import(StudyAccessioningDatabaseServiceTestConfiguration.class)
 public class StudyAccessioningDatabaseServiceTest {
 

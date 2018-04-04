@@ -39,7 +39,6 @@ import static uk.ac.ebi.ampt2d.test.utils.TestHelper.generateSampleModelHashAcce
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @DataJpaTest
-@TestPropertySource(properties = "services=sample-accession")
 @Import(SampleAccessioningDatabaseServiceTestConfiguration.class)
 public class SampleAccessioningDatabaseServiceTest {
 
