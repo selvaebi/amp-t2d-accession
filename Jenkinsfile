@@ -11,7 +11,9 @@ pipeline {
       postgresDBUserName = credentials('POSTGRESDBUSERNAME')
       postgresDBPassword = credentials('POSTGRESDBPASSWORD')
       tomcatCredentials = credentials('TOMCATCREDENTIALS')
-      developmentHost = credentials('DEVELOPMENTHOST')
+      stagingHost = credentials('STAGINGHOST')
+      fallbackHost = credentials('FALLBACKHOST')
+      productionHost = credentials('PRODUCTIONHOST')
    }
    parameters {
        booleanParam(name: 'DeployToStaging' , defaultValue: false , description: '')
