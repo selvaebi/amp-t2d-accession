@@ -20,37 +20,23 @@ package uk.ac.ebi.ampt2d.accession.study;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import uk.ac.ebi.ampt2d.accession.study.persistence.StudyAccessioningDatabaseService;
 import uk.ac.ebi.ampt2d.accession.study.persistence.StudyAccessioningRepository;
-import uk.ac.ebi.ampt2d.commons.accession.autoconfigure.EnableSpringDataContiguousIdService;
-import uk.ac.ebi.ampt2d.commons.accession.generators.DecoratedAccessionGenerator;
-import uk.ac.ebi.ampt2d.commons.accession.generators.monotonic.MonotonicAccessionGenerator;
-import uk.ac.ebi.ampt2d.commons.accession.persistence.monotonic.service.ContiguousIdBlockService;
 
 @Configuration
-@EnableSpringDataContiguousIdService
 @EntityScan({"uk.ac.ebi.ampt2d.accession.study.persistence"})
 @EnableJpaRepositories(basePackages = {"uk.ac.ebi.ampt2d.accession.study.persistence"})
 public class StudyConfiguration {
 
     @Autowired
-    private ContiguousIdBlockService service;
-    @Autowired
     private StudyAccessioningRepository repository;
 
     @Bean
-    @ConfigurationProperties(prefix = "accessioning.study")
-    public StudyApplicationProperties getStudyApplicationProperties() {
-        return new StudyApplicationProperties();
-    }
-
-    @Bean
     public StudyAccessioningService studyAccessionService() {
-        return new StudyAccessioningService(studyAccessionGenerator(), studyAccessioningDatabaseService());
+        return new StudyAccessioningService(studyAccessioningDatabaseService());
     }
 
     @Bean
@@ -58,12 +44,4 @@ public class StudyConfiguration {
         return new StudyAccessioningDatabaseService(repository);
     }
 
-    @Bean
-    public DecoratedAccessionGenerator<StudyModel, Long> studyAccessionGenerator() {
-        StudyApplicationProperties studyApplicationProperties = getStudyApplicationProperties();
-        return DecoratedAccessionGenerator.buildPrefixSuffixMonotonicAccessionGenerator(new
-                        MonotonicAccessionGenerator<>(studyApplicationProperties.getBlockSize(),
-                        studyApplicationProperties.getCategoryId(), studyApplicationProperties.getInstanceId(), service),
-                "STUDY_", "");
-    }
 }
