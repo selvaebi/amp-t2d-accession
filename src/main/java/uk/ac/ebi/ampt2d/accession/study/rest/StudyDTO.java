@@ -19,10 +19,12 @@ package uk.ac.ebi.ampt2d.accession.study.rest;
 
 import uk.ac.ebi.ampt2d.accession.study.StudyModel;
 
+import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 public class StudyDTO implements StudyModel {
 
+    @NotNull(message = "Study properties should not be null")
     private Map<String, String> studyProperties;
 
     StudyDTO() {
